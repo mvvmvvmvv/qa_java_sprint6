@@ -1,17 +1,26 @@
 package com.example;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertThrows;
 
+@RunWith(MockitoJUnitRunner.class)
 public class LionTest {
+
+    @Mock
+    private Feline feline;
 
     @Test
     public void getKittensReturnsExpectedValue() throws Exception {
-        Lion lion = new Lion("Самец", new Feline());
+        Lion lion = new Lion("Самец", feline);
+        Mockito.when(feline.getKittens()).thenReturn(1);
         int expectedKittenCount = 1;
 
         assertEquals(expectedKittenCount, lion.getKittens());
@@ -19,7 +28,8 @@ public class LionTest {
 
     @Test
     public void getFoodReturnsExpectedValue() throws Exception {
-        Lion lion = new Lion("Самец", new Feline());
+        Lion lion = new Lion("Самец", feline);
+        Mockito.when(feline.getFood("Хищник")).thenReturn(List.of("Животные", "Птицы", "Рыба"));
         List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
 
         assertEquals(expectedFood, lion.getFood());
@@ -32,3 +42,4 @@ public class LionTest {
         assertEquals("Неправильный текст исключения: ", expectedException, actualException.getMessage());
     }
 }
+

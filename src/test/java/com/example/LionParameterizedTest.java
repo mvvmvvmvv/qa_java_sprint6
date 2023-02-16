@@ -13,18 +13,16 @@ public class LionParameterizedTest {
     private Feline feline;
     private boolean hasManeExpected;
 
-    public LionParameterizedTest(String lionSex, Feline feline, boolean hasManeExpected) {
+    public LionParameterizedTest(String lionSex,  boolean hasManeExpected) {
         this.lionSex = lionSex;
-        this.feline = feline;
         this.hasManeExpected = hasManeExpected;
     }
 
-    @Parameterized.Parameters(name = "Пол животного: {0}, значение: {2}")
+    @Parameterized.Parameters(name = "Пол животного: {0}, значение: {1}")
     public static Object[][] getDataForm() {
-        Feline felineMock = Mockito.mock(Feline.class);
         return new Object[][] {
-                {"Самец", felineMock, true},
-                {"Самка", felineMock, false},
+                {"Самец", true},
+                {"Самка", false},
         };
     }
 
